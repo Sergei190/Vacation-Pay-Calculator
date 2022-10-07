@@ -41,7 +41,7 @@ public class VacationPayCalculatorService {
         log.info("Сумма НДФЛ = {}", amountNDFL);
 
         BigDecimal totalPay = totalPayWithoutNDFL.subtract(amountNDFL);
-        log.info("К выплате с вычетом НДФЛ = {}", averageEarningsPerDay);
+        log.info("К выплате с вычетом НДФЛ = {}", totalPay);
 
         return totalPay;
     }
