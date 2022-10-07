@@ -32,16 +32,16 @@ public class VacationPayCalculatorService {
                                                 int vacationDays) {
 
         BigDecimal averageEarningsPerDay = averageSalaryPerYear.divide(BigDecimal.valueOf(AVERAGE_NUMBER_DAYS_IN_MOUNT), 2, RoundingMode.HALF_EVEN);
-        log.info("Средний дневной заработок = ", averageEarningsPerDay);
+        log.info("Средний дневной заработок = {}", averageEarningsPerDay);
 
         BigDecimal totalPayWithoutNDFL = averageEarningsPerDay.multiply(BigDecimal.valueOf(vacationDays));
-        log.info("Сумма отпускных без вычета НДФЛ = ", totalPayWithoutNDFL);
+        log.info("Сумма отпускных без вычета НДФЛ = {}", totalPayWithoutNDFL);
 
         BigDecimal amountNDFL = totalPayWithoutNDFL.multiply(BigDecimal.valueOf(NDFL_PERCENT)).setScale(0, RoundingMode.HALF_UP);
-        log.info("Сумма НДФЛ = ", amountNDFL);
+        log.info("Сумма НДФЛ = {}", amountNDFL);
 
         BigDecimal totalPay = totalPayWithoutNDFL.subtract(amountNDFL);
-        log.info("К выплате с вычетом НДФЛ = ", averageEarningsPerDay);
+        log.info("К выплате с вычетом НДФЛ = {}", averageEarningsPerDay);
 
         return totalPay;
     }
