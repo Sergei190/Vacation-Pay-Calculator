@@ -1,35 +1,39 @@
-package ru.neoflex.vacationpaycalculator.service;
+package ru.neoflex.vacationpaycalculator.service.vacation;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import ru.neoflex.vacationpaycalculator.service.days.DaysCalculationService;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class VacationPayCalculatorService {
+public class VacationPayCalculatorServiceImpl implements VacationPayCalculatorService {
 
-    public final static int CURRENT_YEAR = LocalDate.now().getYear();
-
+    /** Среднее количество дней в месяце без учета федеральных праздников */
     private static final double AVERAGE_NUMBER_DAYS_IN_MOUNT = 29.3;
+    /** Процент НДФЛ */
     private static final double NDFL_PERCENT = 0.13;
+
+    private final DaysCalculationService daysCalculationService;
 
     /**
      * Функция для расчёта отпускных сотрудника
      * @param averageSalaryPerYear - средняя зарплата за 12 месяцев
-     * @param vacationDays - количество дней отпуска
+     * @param vacationDays         - количество дней отпуска
+     * @param startVacationDate    - дата начала отпуска
+     * @param endVacationDate      - дата завершения отпуска
      * @return возвращает сумму отпускных, которые придут сотруднику
      */
+    @Override
     public BigDecimal getVacationPayCalculation(BigDecimal averageSalaryPerYear,
-                                                int vacationDays) {
+                                                int vacationDays,
+                                                LocalDate startVacationDate,
+                                                LocalDate endVacationDate) {
 
         BigDecimal averageEarningsPerDay = averageSalaryPerYear.divide(BigDecimal.valueOf(AVERAGE_NUMBER_DAYS_IN_MOUNT), 2, RoundingMode.HALF_EVEN);
         log.info("Средний дневной заработок = {}", averageEarningsPerDay);
@@ -44,25 +48,5 @@ public class VacationPayCalculatorService {
         log.info("К выплате с вычетом НДФЛ = {}", totalPay);
 
         return totalPay;
-    }
-
-    public Set<LocalDate> getHolidaysSet() {
-        Set<LocalDate> holidays = Stream.of(
-                LocalDate.of(CURRENT_YEAR, 1, 1),
-                LocalDate.of(CURRENT_YEAR, 1, 2),
-                LocalDate.of(CURRENT_YEAR, 1, 3),
-                LocalDate.of(CURRENT_YEAR, 1, 4),
-                LocalDate.of(CURRENT_YEAR, 1, 5),
-                LocalDate.of(CURRENT_YEAR, 1, 6),
-                LocalDate.of(CURRENT_YEAR, 1, 7),
-                LocalDate.of(CURRENT_YEAR, 1, 8),
-                LocalDate.of(CURRENT_YEAR, 2, 23),
-                LocalDate.of(CURRENT_YEAR, 8, 3),
-                LocalDate.of(CURRENT_YEAR, 1, 5),
-                LocalDate.of(CURRENT_YEAR, 6, 12),
-                LocalDate.of(CURRENT_YEAR, 11, 4)
-        ).collect(Collectors.toSet());
-
-        return Collections.unmodifiableSet(holidays);
     }
 }
