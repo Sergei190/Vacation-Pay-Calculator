@@ -4,28 +4,35 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.neoflex.vacationpaycalculator.service.days.DaysCalculationService;
 import ru.neoflex.vacationpaycalculator.service.vacation.VacationPayCalculatorService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @RestController
 public class VacationPayCalculatorController {
 
     private final VacationPayCalculatorService vacationPayCalculatorService;
+    private final DaysCalculationService daysCalculationService;
 
-    public VacationPayCalculatorController(VacationPayCalculatorService vacationPayCalculatorService) {
+    public VacationPayCalculatorController(VacationPayCalculatorService vacationPayCalculatorService,
+                                           DaysCalculationService daysCalculationService) {
         this.vacationPayCalculatorService = vacationPayCalculatorService;
+        this.daysCalculationService = daysCalculationService;
     }
 
     @GetMapping("/calculacte")
     public BigDecimal getVacationPay(
             @RequestParam("averageSalary") BigDecimal averageSalaryPerYear,
             @RequestParam("vacationDays") int vacationDays,
-            @RequestParam("startVacationDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startVacationDate,
-            @RequestParam("endVacationDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endVacationDate
-
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Optional<LocalDate> startVacationDate
     ) {
-        return vacationPayCalculatorService.getVacationPayCalculation(averageSalaryPerYear, vacationDays, startVacationDate, endVacationDate);
+        if (startVacationDate.isPresent()) {
+            vacationDays = daysCalculationService.calculatePaidDays(vacationDays, startVacationDate.get());
+        }
+        return vacationPayCalculatorService.getVacationPayCalculation(averageSalaryPerYear, vacationDays);
+
     }
 }

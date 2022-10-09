@@ -5,6 +5,5 @@ import java.time.LocalDate;
 public interface DaysCalculationService {
 
     int calculatePaidDays(int vacationDays,
-                          LocalDate startVacationDate,
-                          LocalDate endVacationDate);
+                          LocalDate startVacationDate);
 }

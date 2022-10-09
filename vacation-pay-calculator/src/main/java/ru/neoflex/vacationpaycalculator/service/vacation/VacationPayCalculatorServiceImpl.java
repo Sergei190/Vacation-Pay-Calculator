@@ -3,11 +3,9 @@ package ru.neoflex.vacationpaycalculator.service.vacation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import ru.neoflex.vacationpaycalculator.service.days.DaysCalculationService;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
 
 @Slf4j
 @Component
@@ -19,21 +17,15 @@ public class VacationPayCalculatorServiceImpl implements VacationPayCalculatorSe
     /** Процент НДФЛ */
     private static final double NDFL_PERCENT = 0.13;
 
-    private final DaysCalculationService daysCalculationService;
-
     /**
      * Функция для расчёта отпускных сотрудника
      * @param averageSalaryPerYear - средняя зарплата за 12 месяцев
      * @param vacationDays         - количество дней отпуска
-     * @param startVacationDate    - дата начала отпуска
-     * @param endVacationDate      - дата завершения отпуска
      * @return возвращает сумму отпускных, которые придут сотруднику
      */
     @Override
     public BigDecimal getVacationPayCalculation(BigDecimal averageSalaryPerYear,
-                                                int vacationDays,
-                                                LocalDate startVacationDate,
-                                                LocalDate endVacationDate) {
+                                                int vacationDays) {
 
         BigDecimal averageEarningsPerDay = averageSalaryPerYear.divide(BigDecimal.valueOf(AVERAGE_NUMBER_DAYS_IN_MOUNT), 2, RoundingMode.HALF_EVEN);
         log.info("Средний дневной заработок = {}", averageEarningsPerDay);
