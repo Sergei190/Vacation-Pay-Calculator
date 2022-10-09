@@ -12,7 +12,15 @@ GET "/calculacte"
 
 # Запрос на API  
 Простой запрос:  
-http://localhost:8081/calculacte?averageSalary=30500&vacationDays=30  
-Запрос с указание точного дня ухода в отпуск:  
-http://localhost:8081/calculacte?averageSalary=30500&vacationDays=30&startVacationDate=2022-02-25  
+http://localhost:8081/calculacte?averageSalary=30500.00&vacationDays=30  
+Запрос с указанием точного дня ухода в отпуск:  
+http://localhost:8081/calculacte?averageSalary=30500.00&vacationDays=30&startVacationDate=2022-02-25  
+
+# Cтек проекта
+SpringBoot  
+Java 11  
+Eureka Server  
+Stream API  
+jUnit  
+MockMvc
 
