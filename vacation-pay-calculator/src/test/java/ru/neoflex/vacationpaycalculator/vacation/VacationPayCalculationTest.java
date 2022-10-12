@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-public class VacationPayResponseCalculationTest {
+public class VacationPayCalculationTest {
 
     private VacationPayCalculatorServiceImpl vacationPayCalculatorService;
     private DaysCalculationServiceImpl daysCalculationService;

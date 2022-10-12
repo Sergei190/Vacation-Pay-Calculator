@@ -13,11 +13,11 @@ GET "/calculacte"
 # API requests
 Простой запрос:  
 http://localhost:8081/calculacte?averageSalary=30500.00&vacationDays=30  
-Response: {"outputMessage":"Сумма отпускных с вычетом НДФЛ","vacationPay":27168.80}  
+Response: {"outputMessage":"Сумма отпускных в рублях (с вычетом НДФЛ)","vacationPay":27168.80}  
   
 Запрос с указанием точного дня ухода в отпуск:  
 http://localhost:8081/calculacte?averageSalary=30500.00&vacationDays=30&startVacationDate=2022-02-25  
-Response: {"outputMessage":"Сумма отпускных с вычетом НДФЛ","vacationPay":18113.20}  
+Response: {"outputMessage":"Сумма отпускных в рублях (с вычетом НДФЛ)","vacationPay":18113.20}  
 
 # Cтек проекта
 SpringBoot  

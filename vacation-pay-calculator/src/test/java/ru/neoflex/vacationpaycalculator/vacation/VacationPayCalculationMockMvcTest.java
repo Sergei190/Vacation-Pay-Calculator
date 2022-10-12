@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
-public class VacationPayResponseCalculationMockMvcTest extends ResolversAbstractCommonConfiguration {
+public class VacationPayCalculationMockMvcTest extends ResolversAbstractCommonConfiguration {
 
     public final static String VACATION_PAY_API = "/calculacte";
 
