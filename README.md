@@ -10,11 +10,14 @@ GET "/calculacte"
   
 Проверяться будет чистота кода, структура проекта, название полей\классов, правильность использования паттернов. Желательно написание юнит-тестов, проверяющих расчет.  
 
-# Запрос на API  
+# API requests
 Простой запрос:  
 http://localhost:8081/calculacte?averageSalary=30500.00&vacationDays=30  
+Response: {"outputMessage":"Сумма отпускных с вычетом НДФЛ","vacationPay":27168.80}  
+  
 Запрос с указанием точного дня ухода в отпуск:  
-http://localhost:8081/calculacte?averageSalary=30500.00&vacationDays=30&startVacationDate=2022-02-25  
+http://localhost:8081/calculacte?averageSalary=30500.00&vacationDays=30 &startVacationDate=2022-02-25  
+Response: {"outputMessage":"Сумма отпускных с вычетом НДФЛ","vacationPay":18113.20}  
 
 # Cтек проекта
 SpringBoot  
@@ -24,3 +27,8 @@ Stream API
 jUnit  
 MockMvc
 
+# Postman
+Простой запрос:  
+![img.png](vacation-pay-calculator/src/main/resources/img/img.png)
+Запрос с указанием точного дня ухода в отпуск:  
+![img_1.png](vacation-pay-calculator/src/main/resources/img/img_1.png)

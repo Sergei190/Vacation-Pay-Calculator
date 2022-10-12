@@ -3,6 +3,7 @@ package ru.neoflex.vacationpaycalculator.service.vacation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import ru.neoflex.vacationpaycalculator.dto.VacationPayResponse;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -24,8 +25,8 @@ public class VacationPayCalculatorServiceImpl implements VacationPayCalculatorSe
      * @return возвращает сумму отпускных, которые придут сотруднику
      */
     @Override
-    public BigDecimal getVacationPayCalculation(BigDecimal averageSalaryPerYear,
-                                                int vacationDays) {
+    public VacationPayResponse getVacationPayCalculation(BigDecimal averageSalaryPerYear,
+                                                         int vacationDays) {
 
         BigDecimal averageEarningsPerDay = averageSalaryPerYear.divide(BigDecimal.valueOf(AVERAGE_NUMBER_DAYS_IN_MOUNT), 2, RoundingMode.HALF_EVEN);
         log.info("Средний дневной заработок = {}", averageEarningsPerDay);
@@ -39,6 +40,6 @@ public class VacationPayCalculatorServiceImpl implements VacationPayCalculatorSe
         BigDecimal totalPay = totalPayWithoutNDFL.subtract(amountNDFL);
         log.info("К выплате с вычетом НДФЛ = {}", totalPay);
 
-        return totalPay;
+        return new VacationPayResponse("Сумма отпускных с вычетом НДФЛ", totalPay);
     }
 }

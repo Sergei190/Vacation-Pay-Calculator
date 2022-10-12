@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-public class VacationPayCalculationTest {
+public class VacationPayResponseCalculationTest {
 
     private VacationPayCalculatorServiceImpl vacationPayCalculatorService;
     private DaysCalculationServiceImpl daysCalculationService;
@@ -40,7 +40,7 @@ public class VacationPayCalculationTest {
     @DisplayName("Vacation pay test")
     void calculationOfVacationPayForEmployeeUsingSimpleQueryTest() {
 
-        BigDecimal actual = vacationPayCalculatorService.getVacationPayCalculation(testAverageSalaryPerYear, testVacationDays);
+        BigDecimal actual = vacationPayCalculatorService.getVacationPayCalculation(testAverageSalaryPerYear, testVacationDays).getVacationPay();
         assertEquals(BigDecimal.valueOf(27168.80).stripTrailingZeros(), actual.stripTrailingZeros());
     }
 
@@ -51,7 +51,7 @@ public class VacationPayCalculationTest {
         LocalDate testStartVacationDate = LocalDate.of(2022, 2, 25);
 
         int testPaidVacationDays = daysCalculationService.calculatePaidDays(testVacationDays, testStartVacationDate);
-        BigDecimal actual = vacationPayCalculatorService.getVacationPayCalculation(testAverageSalaryPerYear, testPaidVacationDays);
+        BigDecimal actual = vacationPayCalculatorService.getVacationPayCalculation(testAverageSalaryPerYear, testPaidVacationDays).getVacationPay();
         assertEquals(BigDecimal.valueOf(18113.20).stripTrailingZeros(), actual.stripTrailingZeros());
     }
 }

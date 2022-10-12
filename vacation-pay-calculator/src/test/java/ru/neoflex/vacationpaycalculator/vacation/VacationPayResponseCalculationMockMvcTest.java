@@ -11,11 +11,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.neoflex.vacationpaycalculator.ResolversAbstractCommonConfiguration;
 
+import java.math.BigDecimal;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
-public class VacationPayCalculationMockMvcTest extends ResolversAbstractCommonConfiguration {
+public class VacationPayResponseCalculationMockMvcTest extends ResolversAbstractCommonConfiguration {
 
     public final static String VACATION_PAY_API = "/calculacte";
 
@@ -32,7 +34,8 @@ public class VacationPayCalculationMockMvcTest extends ResolversAbstractCommonCo
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("27168.80"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.vacationPay").value(BigDecimal.valueOf(27168.80).stripTrailingZeros()))
+                //.andExpect(MockMvcResultMatchers.content().string("27168.80"))
                 .andReturn();
 
         log.info(result.getResponse().getContentAsString());
@@ -49,7 +52,8 @@ public class VacationPayCalculationMockMvcTest extends ResolversAbstractCommonCo
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("18113.20"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.vacationPay").value(BigDecimal.valueOf(18113.20).stripTrailingZeros()))
+                //.andExpect(MockMvcResultMatchers.content().string("18113.20"))
                 .andReturn();
 
         log.info(result.getResponse().getContentAsString());

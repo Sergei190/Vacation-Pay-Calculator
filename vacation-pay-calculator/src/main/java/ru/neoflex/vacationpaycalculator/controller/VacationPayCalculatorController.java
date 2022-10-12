@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.neoflex.vacationpaycalculator.dto.VacationPayResponse;
 import ru.neoflex.vacationpaycalculator.service.days.DaysCalculationService;
 import ru.neoflex.vacationpaycalculator.service.vacation.VacationPayCalculatorService;
 
@@ -24,7 +25,7 @@ public class VacationPayCalculatorController {
     }
 
     @GetMapping("/calculacte")
-    public BigDecimal getVacationPay(
+    public VacationPayResponse getVacationPay(
             @RequestParam("averageSalary") BigDecimal averageSalaryPerYear,
             @RequestParam("vacationDays") int vacationDays,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Optional<LocalDate> startVacationDate
@@ -33,6 +34,5 @@ public class VacationPayCalculatorController {
             vacationDays = daysCalculationService.calculatePaidDays(vacationDays, startVacationDate.get());
         }
         return vacationPayCalculatorService.getVacationPayCalculation(averageSalaryPerYear, vacationDays);
-
     }
 }
