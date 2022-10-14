@@ -1,6 +1,8 @@
 package ru.neoflex.vacationpaycalculator.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +14,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
+@Api(tags = {"Vacation pay calculator part"})
 @RestController
+@Validated
 public class VacationPayCalculatorController {
 
     private final VacationPayCalculatorService vacationPayCalculatorService;

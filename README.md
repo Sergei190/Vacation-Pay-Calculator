@@ -25,7 +25,18 @@ Java 11
 Eureka Server  
 Stream API  
 jUnit  
-MockMvc
+MockMvc  
+Docker
+
+# Docker  
+Build gradle:  
+`gradlew clean build`  
+Build project image with docker:  
+`docker image build ./ -t nikolayshved/vacation-image`  
+Running the docker container container with an images:   
+`docker run -p 8081:8081 -d --name vacation-service nikolayshved/vacation-image`  
+Stopping a docker container:  
+`docker stop vacation-service`
 
 # Postman
 Простой запрос:  
